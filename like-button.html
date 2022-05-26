@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>좋아요</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+        <!-- 인접해야 v-if문이 먹힌다 -->
+      <div v-if="Liked">좋아요 버튼 눌렀음</div>
+      <button v-else v-on:click="onClickButton">Like</button>
+    </div>
+  </body>
+  <script>
+    //   데이터 중심으로 생각하고 화면은 vue가 알아서 변경해 준다
+    const app = new Vue({
+      el: '#root',
+      data: {
+        Liked: false,
+      },
+      methods: {
+        onClickButton() {
+          this.Liked = true;
+        },
+      },
+    });
+  </script>
+</html>
