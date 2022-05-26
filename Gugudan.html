@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>구구단</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <div>{{first}}곱하기 {{second}}는?</div>
+      <form v-on:submit="onSubmitForm">
+        <!-- ref를 사용하여 input 태그에 접근 할 수 있다 -->
+        <input type="number" ref="answer" v-model="value" />
+        <button type="submit">입력</button>
+        <!-- <div>{{value}}</div> -->
+        <!-- 위처럼 바로 확인할 수 있으며 이것을 양방향 바인딩이라 한다 -->
+      </form>
+      <div id="result">{{result}}</div>
+    </div>
+  </body>
+  <script>
+    const app = new Vue({
+      el: '#root',
+      data: {
+        first: Math.ceil(Math.random() * 9),
+        second: Math.ceil(Math.random() * 9),
+        value: '',
+        result: '',
+      },
+      methods: {
+        onSubmitForm(e) {
+          console.log(this);
+          // preventDefault를 넣어야 새로고침이 되지않는다.SPA에서 사용
+          e.preventDefault();
+          if (parseInt(this.value) === this.first * this.second) {
+            this.result = '정답';
+            this.first = Math.ceil(Math.random() * 9);
+            this.second = Math.ceil(Math.random() * 9);
+            this.value = '';
+            this.$refs.answer.focus(); // input태그에 접근하는 코드
+          } else {
+            this.result = '땡';
+            this.value = '';
+            this.$refs.answer.focus();
+          }
+        },
+      },
+    });
+  </script>
+</html>
